@@ -1,0 +1,7 @@
+class Solution(object):
+    def getConcatenation(self, nums):
+        self.array_output = []
+        for i in range(2*len(nums)):
+            i = i % len(nums)
+            self.array_output.append(nums[i])
+        return self.array_output
