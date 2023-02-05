@@ -1,0 +1,27 @@
+class Solution(object):
+    def countPalindromicSubsequence(self, s):
+        sets = []
+        amount = 0
+        current_letter1 = e
+        current_letter2 = e
+        current_letter3 = e
+            
+        for i in range(0, len(s)):
+            #1st letter's taken
+            current_letter1 = s[i]
+            for j in range(i, len(s)):
+                #2nd letter's taken
+                if i < j:
+                    current_letter2 = s[j]
+                for k in range(j, len(s)):
+                    #3rd letter's taken 
+                    if j < k :
+                        current_letter3 = s[k]
+                        if current_letter1 == current_letter3 and [current_letter1, current_letter2, current_letter3] not in sets:
+                            
+                            sets.append([current_letter1, current_letter2, current_letter3])
+        amount = len(sets)
+        print(sets)
+        return amount 
+
+# https://leetcode.com/problems/unique-length-3-palindromic-subsequences/description/
