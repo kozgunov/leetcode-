@@ -1,0 +1,23 @@
+ideas = ["coffee","donuts","time","toffee"]
+output = []
+
+class Solution(object):
+    def distinctNames(self, ideas):
+        amount = 0
+        for i in range(len(ideas)):
+            for j in range(len(ideas)):
+                idea1 = ideas[i][0] + ideas[j][1:]
+                idea2 = ideas[j][0] + ideas[i][1:]
+                idea = idea1 + " " + idea2
+                if idea1 not in output and idea1 not in ideas and idea2 not in output and idea2 not in ideas:
+                    output.append(idea)
+                    amount += 1
+        print(amount)
+        print(output)
+
+        return [amount, output]
+
+Solution().distinctNames(ideas)
+
+
+https://leetcode.com/problems/naming-a-company/
