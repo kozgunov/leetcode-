@@ -1,0 +1,23 @@
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        reply = 0
+        reply_reply = []
+        for i in range(len(l1)):
+            current_number = l1[0]
+            l1.pop(0)
+            reply = reply + current_number * (10 ** i)
+            print("reply", reply)
+            print(l1)
+
+        for i in range(len(l2)):
+            current_number = l2[0]
+            l2.pop(0)
+            reply = reply + current_number * (10 ** i)
+
+        while reply:
+            reply_reply.append(reply % 10)
+            reply = reply//10
+
+        return reply_reply
+
+https://leetcode.com/problems/add-two-numbers/
