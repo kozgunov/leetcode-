@@ -1,0 +1,52 @@
+s = "PAYPALISHIRING" # 14 letters
+numRows = 4 #3
+
+class Solution(object):
+
+    def convert(self, s, numRows):
+        output = []
+        answer = ""
+        step1 = 2 + (numRows - 2) * 2
+        step2 = (numRows - 2) * 2
+        step3 = (numRows - 2) * 2 - 2
+        for i in range(len(s) // numRows):
+
+            if i == 0:
+                for j in range(len(s) // numRows):
+                    output.append(s[step1*j])
+
+            if i == 1:
+                for j in range(len(s) // numRows):
+                    output.append(s[step1*j + 1])
+                    try:
+                        output.append(s[step1*j + step2 + 1])
+                    except:
+                        continue
+
+            if i == 2:
+                if numRows == 4:
+                    for j in range(len(s) // numRows):
+                        try:
+                            output.append(s[step3 + step1*j])
+                        except:
+                            continue
+                        try:
+                            output.append(s[step2 + step1*j])
+                        except:
+                            continue
+                for k in range(len(s) // numRows):
+                    try:
+                        output.append(s[step1 * k + step1 // 2])
+                    except:
+                        continue
+
+            for k in output:
+                answer = answer + k
+            output.clear()
+
+        print(answer)
+        return output
+
+Solution().convert(s, numRows)
+
+https://leetcode.com/problems/zigzag-conversion/
