@@ -1,0 +1,32 @@
+#include <iostream>
+#include <vector>
+
+void rotate(std::vector<int>& number, int k) {
+    k = k % number.size();
+    reverse(number, 0, number.size() - 1); // using swap function
+    reverse(number, 0, k - 1);
+    reverse(number, k, number.size() - 1);
+}
+
+void reverse(std::vector<int>& number, int start, int end) {
+    while (start < end) {
+        std::swap(number[start], number[end]); // function, which change the elems in sense of order
+        start++;
+        end--;
+    }
+}
+
+
+int main() {
+    std::vector<int> number = {1, 2, 3, 4, 5, 6, 7};
+    int k = 3;
+
+    rotate(number, k);
+    std::cout << "The rotated array is: ";
+    for (int num : number) {
+        std::cout << num << ", "; // 7, 6, 5, 4, 3, 2, 1,
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
