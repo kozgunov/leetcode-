@@ -1,0 +1,32 @@
+#include <iostream>
+#include <string>
+#include <unordered_map>
+
+// it works, because of specific libriary. I think, I have to do it without "unordered_map"
+// bad runtime w.r.t. leetcode
+
+using namespace std; 
+
+int lengthOfLongestSubstring(string s) {
+    int max_length = 0;
+    int start = 0;
+    unordered_map<char, int> char_index_map;
+
+    for (int end = 0; end < s.length(); ++end) {
+        if (char_index_map.find(s[end]) != char_index_map.end() && char_index_map[s[end]] >= start) {
+            start = char_index_map[s[end]] + 1;
+        }
+        char_index_map[s[end]] = end;
+        max_length = max(max_length, end - start + 1);
+    }
+
+    return max_length;
+}
+
+int main() {
+    string s = "abcabcbb"; // from leetcode
+    int result = lengthOfLongestSubstring(s);
+    cout << "The length of the longest substring without repeating characters is: " << result << endl;
+
+    return 0;
+}
