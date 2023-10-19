@@ -1,5 +1,7 @@
 #include <iostream>
 
+// probably, one of the best solution w.r.t. leetcode
+
 bool isPalindrome(std::string s) {
     int left = 0;
     int right = s.length() - 1;
