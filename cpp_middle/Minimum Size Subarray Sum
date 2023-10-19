@@ -1,0 +1,23 @@
+#include <iostream>
+#include <vector>
+
+// works correctly for samples, but leetcode declined!
+
+int minSubArrayLen(int s, std::vector<int>& num) {
+    int left = 0;
+    int right = 0;
+    int min_length = numeric_limits<int>::max();
+    int sum = 0;
+
+    while (right < num.size()) {
+        sum += num[right];
+        while (sum >= s) {
+            min_length = min(min_length, right - left + 1);
+            sum -= num[left];
+            left++;
+        }
+        right++;
+    }
+
+    return (min_length == snumeric_limits<int>::max()) ? 0 : min_length;
+}
