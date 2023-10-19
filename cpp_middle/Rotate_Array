@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 
+// time was good w.r.t. leetcode, but I can improve it (simplify the algorithm and cancel the number of operations)
+
 void rotate(std::vector<int>& number, int k) {
     k = k % number.size();
     reverse(number, 0, number.size() - 1); // using swap function
