@@ -1,0 +1,35 @@
+#include <iostream>
+#include <vector>
+
+// I got bad runtime !!! 
+
+int removeDuplicates(std::vector<int>& number) {
+    if (number.size() <= 2) return number.size();
+
+    int i = 2;
+    int j = 2;
+
+    while (i < number.size()) {
+        if (number[i] != number[j - 2]) {
+            number[j] = number[i];
+            j++;
+        }
+        i++;
+    }
+
+    return j;
+}
+
+int main() {
+    std::vector<int> number = {1, 1, 1, 2, 2, 3}; // example vector for checking
+
+    int k = removeDuplicates(number);
+    std::cout << "The number of elements with at most two duplicates is: " << k << std::endl;
+    std::cout << "The modified array is: ";
+    for (int i = 0; i < k; i++) {
+        std::cout << number[i] << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
