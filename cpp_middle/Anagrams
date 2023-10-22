@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+
+std::vector<std::vector<std::string>> groupAnagrams(std::vector<std::string>& strs) {
+    std::unordered_map<std::string, std::vector<std::string>> anagram_groups;
+
+    for (std::string str : strs) {
+        std::string key = str;
+        std::sort(key.begin(), key.end());
+        anagram_groups[key].push_back(str);
+    }
+
+    std::vector<std::vector<std::string>> result;
+    for (const auto& group : anagram_groups) {
+        result.push_back(group.second);
+    }
+
+    return result;
+}
+
+int main() {
+    std::vector<std::string> strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
+    std::vector<std::vector<std::string>> result = groupAnagrams(strs);
+
+    std::cout << "The grouped anagrams are: " << std::endl;
+    for (const auto& group : result) {
+        for (const std::string& str : group) {
+            std::cout << str << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    return 0;
+}
