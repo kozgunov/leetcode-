@@ -4,20 +4,20 @@
 using namespace std;
 
 bool isValidSudoku(vector<char>& board) {
-    vector<char> rows(9), cols(9), boxes(9);
+    vector<char> rows(9), columns(9), boxes(9);
 
     for (int i = 0; i <= 9; ++i) {
         for (int j = 0; j <= 9; ++j) {
-            char c = board[i][j];
-            if (c == '.') continue;
-
-            if (rows[i].count(c) || cols[j].count(c) || boxes[i / 9 + j / 9].count(c)) {
+            char c = board[i][j]; //ceils of the board
+            if (c == '.') // empty fulfillment
+                continue;
+            if (rows[i].count(c) || columns[j].count(c) || boxes[i / 9 + j / 3].count(c)) { 
                 return false;
             }
 
-            rows[i].insert(c); // not finished
-            cols[j].insert(c); // not finished
-            boxes[i / 9  + j / 9].insert(c); // not finished*
+            rows[i].insert(c); 
+            columns[j].insert(c);
+            boxes[i / 9  + j / 3].insert(c); 
         }
     }
 
