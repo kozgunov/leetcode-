@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+	vector<int> nums = { -2, 0, 3, -5, 2, -1 };
+	num_array num_array(nums);
+
+	cout << "Sumo of range [0,2]:" << num_array.sum_range(0, 2) << endl; // -2
+	cout << "Sumo of range [1,4]:" << num_array.sum_range(1, 4) << endl; // 0
+	cout << "Sumo of range [0,5]:" << num_array.sum_range(0, 5) << endl; // -3
+}
+
+
+class num_array
+{
+private: 
+	vector<int> prefix_sum;
+
+public:
+	num_array(vector<int>& nums) // summing the numbers of the range up
+	{
+		prefix_sum.resize(nums.size() + 1);
+		for (int i = 0; i < nums.size(); ++i)
+		{
+			prefix_sum[i + 1] = prefix_sum[i] + nums[i];
+		}
+	}
+	
+	int sum_range(int i, int j) // the range of numbers, which sum should be computed
+	{
+		return prefix_sum[j + 1] - prefix_sum[i];  
+	}
+};
