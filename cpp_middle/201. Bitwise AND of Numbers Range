@@ -1,0 +1,18 @@
+// succeed into leetcode IDE
+
+class Solution 
+{
+public:
+    int rangeBitwiseAnd(int m, int n) {
+        int shift = 0;
+        while (m != n) 
+        {
+            if (n > 2147483647 || m > 2147483647 || n < -2147483647 || m < -2147483647)
+                return 0;
+            m >>= 1; // shift the 1 to the right side (divide by 2)
+            n >>= 1;
+            ++shift;
+        }
+        return m << shift;
+    }
+};
