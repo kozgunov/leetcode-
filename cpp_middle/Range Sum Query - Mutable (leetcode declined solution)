@@ -1,0 +1,68 @@
+#include <vector>
+
+using namespace std;
+
+class NumArray 
+{
+    vector<int> segment_tree;
+    int n;
+    void build_tree(vector<int>& nums, int tree_index, int low, int high) 
+    {
+        if (low == high)
+        {
+            segment_tree[tree_index] = nums[low];
+            return;
+        }
+        int middle = low + (high - low) / 2;
+        build_tree(nums, 2 * tree_index + 1, low, middle);
+        build_tree(nums, 2 * tree_index + 2, middle + 1, high);
+        segment_tree[tree_index] = segment_tree[2 * tree_index + 1] + segment_tree[2 * tree_index + 2];
+    }
+
+    void update_tree(int tree_index, int low, int high, int array_index, int val)
+    {
+        if (low == high) 
+        {
+            segment_tree[tree_index] = val;
+            return;
+        }
+        int middle = low + (high - low) / 2;
+        if (array_index <= middle)
+        {
+            update_tree(2 * tree_index + 1, low, middle, array_index, val);
+        }
+        else {
+            update_tree(2 * tree_index + 2, middle + 1, high, array_index, val);
+        }
+        segment_tree[tree_index] = segment_tree[2 * tree_index + 1] + segment_tree[2 * tree_index + 2];
+    }
+
+    int query_tree(int tree_index, int low, int high, int i, int j)
+    {
+        if (i > high || j < low) return 0; // no overlap
+        if (i <= low && high <= j) return segment_tree[tree_index]; // total overlap
+        int middle = low + (high - low) / 2;
+        if (i > middle) return query_tree(2 * tree_index + 2, middle + 1, high, i, j);
+        if (j <= middle) return query_tree(2 * tree_index + 1, low, middle, i, j);
+        return query_tree(2 * tree_index + 1, low, middle, i, j) + query_tree(2 * tree_index + 2, middle + 1, high, i, j); // partial overlap
+    }
+
+public:
+    NumArray(vector<int>& nums) 
+    {
+        if (nums.empty()) return;
+        n = nums.size();
+        segment_tree.resize(4 * n); // segment tree typically needs 4*n space
+        build_tree(nums, 0, 0, n - 1);
+    }
+
+    void update(int i, int val) 
+    {
+        update_tree(0, 0, n - 1, i, val);
+    }
+
+    int sumRange(int i, int j) 
+    {
+        return query_tree(0, 0, n - 1, i, j);
+    }
+};
