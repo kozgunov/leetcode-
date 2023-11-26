@@ -1,0 +1,31 @@
+#include <vector>
+
+using namespace std;
+
+class NumMatrix 
+{
+    vector<vector<int>> prefixSum;
+
+public:
+    NumMatrix(vector<vector<int>>& matrix) // vector<vector..>.. is done for 2-dimensional matrix
+    {
+        if (matrix.empty() || matrix[0].empty()) 
+            return;
+        int m = matrix.size();
+        int n = matrix[0].size();
+        prefixSum = vector<vector<int>>(m + 1, vector<int>(n + 1, 0));
+
+        for (int i = 1; i <= m; ++i) // summing up of every ceil into the region by coming to their neighbors(to left and to above) 
+        {
+            for (int j = 1; j <= n; ++j) 
+            {
+                prefixSum[i][j] = matrix[i - 1][j - 1] + prefixSum[i - 1][j] + prefixSum[i][j - 1] - prefixSum[i - 1][j - 1];
+            }
+        }
+    }
+
+    int sumRegion(int row1, int col1, int row2, int col2) 
+    {
+        return prefixSum[row2 + 1][col2 + 1] - prefixSum[row2 + 1][col1] - prefixSum[row1][col2 + 1] + prefixSum[row1][col1];
+    }
+};
