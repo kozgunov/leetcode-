@@ -49,4 +49,4 @@ public:
     }
 };
 
-// it succeed in leetcode
+// it succeed in leetcode with bad space complexity
